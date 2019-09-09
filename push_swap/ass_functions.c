@@ -6,7 +6,7 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:25:28 by lgumede           #+#    #+#             */
-/*   Updated: 2019/08/13 14:12:20 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/09 15:47:18 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,11 @@ void			display(struct p_l *list)
 
 int			sa_check(struct p_l *head)
 {
-	if (head->elem > (head->next)->elem)
-		return (1);
+	if (head && head->next)
+	{
+		if (head->elem > (head->next)->elem)
+			return (1);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/12 09:57:49 by lgumede           #+#    #+#             */
-/*   Updated: 2019/09/05 14:29:01 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/09 16:23:58 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ void		large(struct p_l **head, struct p_l **largest);
 void		small(struct p_l **head, struct p_l **smallest);
 void		mid(struct p_l **head, struct p_l **mid, int size);
 void		swap_sa_sb(struct p_l **head);
-void		sorter(struct p_l **stack_a, struct p_l **stack_b);
+void		sorter(struct p_l **stack_a, struct p_l **stack_b,
+			struct p_l **largest);
 void		ra_rb_sa_sb(struct p_l **stack_a);
 void		rra_sa_sb(struct p_l **stack_a);
 void		new_min(struct p_l **stack_a, struct p_l **stack_b,

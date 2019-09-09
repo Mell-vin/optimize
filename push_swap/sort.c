@@ -6,7 +6,7 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/23 09:41:11 by lgumede           #+#    #+#             */
-/*   Updated: 2019/09/05 15:01:37 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/09 16:23:55 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "push_swap.h"
 #include <stdio.h>
 
-void		swap_pb(struct p_l **stack_b, struct p_l **stack_a)
+void		swap_pa(struct p_l **stack_b, struct p_l **stack_a)
 {
 	struct p_l *current;
 
@@ -64,31 +64,59 @@ int			av(struct p_l *head)
 	return (average);
 }
 
-void		sorter(struct p_l **stack_a, struct p_l **stack_b)
+void		sorter_b(struct p_l **stack_a, struct p_l **stack_b,
+			struct p_l **largest)
 {
-	int avg;
-
-	avg = av((*stack_a));
-	while (is_sorted(*stack_a) == 0)
-	{
-		//counter
-		if ((*stack_a)->elem < avg)
-		{
-			printf("entry\n");
-			pb_sb(stack_a, stack_b);
-			printf("exit\n");
-		}
-		printf("here\n");
-		swap_ra_rb(stack_a);
-		if ((*stack_b) && (*stack_b)->elem < ((*stack_b)->next)->elem)
-		{
-			printf("here\n");
-			swap_sa_sb(stack_b);
-		}
-	}
+	large(stack_b, largest);
+	display(*largest);
+	printf("\n\n\n");
+	display(*stack_b);
+	return ;
 	while ((*stack_b))
 	{
-		printf("here\n");
-		swap_pb(stack_b, stack_a);
+		large(stack_b, largest);
+		while ((*stack_b) != (*largest))
+			swap_ra_rb(stack_b);
+		if ((*stack_b) == (*largest))
+			swap_pa(stack_b, stack_a);
 	}
+	display(*stack_a);
+}
+
+void		sorter(struct p_l **stack_a, struct p_l **stack_b,
+			struct p_l **largest)
+{
+	int avg;
+	//int counter;
+	//int pbcount;
+
+	//pbcount = 0;
+//	counter = 0;
+	while ( (*stack_a) && is_sorted(*stack_a) == 0 /*&& counter <= 15*/)
+	{
+	//	counter++;
+		avg = av((*stack_a));
+		//printf("\t\t\t\t\t AVG: %d\n", avg);
+		//if ((sa_check(*stack_a) == 1))
+		//	swap_sa_sb(stack_a);
+		if ((*stack_a)->elem < avg)
+		{
+			//printf("entry\n");
+			//pbcount++;
+			//printf("pb count:\t\t\t%d\n", pbcount);
+			pb_sb(stack_a, stack_b);
+			//printf("exit\n");
+		}
+		else
+			swap_ra_rb(stack_a);
+		if ((*stack_b) && ((*stack_b)->next) &&
+		((*stack_b)->elem < ((*stack_b)->next)->elem))
+		{
+				//printf("heren\n");
+				swap_ra_rb(stack_b);
+		}
+	}
+	display(*stack_b);
+	printf("\n\n\n");
+	sorter_b(stack_b, stack_a, largest);
 }

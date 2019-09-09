@@ -6,7 +6,7 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 14:25:27 by lgumede           #+#    #+#             */
-/*   Updated: 2019/08/30 14:46:30 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/09 15:55:39 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,14 @@ void		large(struct p_l **head, struct p_l **largest)
 
 	if (*head)
 	{
-		current = (*head);
-		(*largest) = current;
-		while (current->next)
+		(*largest) = (*head);
+		current = (*largest)->next;
+		while (current)
 		{
-			if ((current->next)->elem > current->elem)
-				(*largest) = current->next;
+			if (((*largest)->elem < current->elem))
+			{
+				(*largest) = current;
+			}
 			current = current->next;
 		}
 	}

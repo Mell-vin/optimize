@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pushtions.c                                        :+:      :+:    :+:   */
+/*   swap_a.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/26 12:34:56 by lgumede           #+#    #+#             */
-/*   Updated: 2019/09/05 14:37:03 by lgumede          ###   ########.fr       */
+/*   Created: 2019/09/16 11:24:50 by lgumede           #+#    #+#             */
+/*   Updated: 2019/09/16 13:59:33 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "../libft/libft.h"
-#include <stdio.h>
 
 void		swap_2(struct p_l **head)
 {
@@ -29,13 +28,12 @@ void		swap_2(struct p_l **head)
 	}
 }
 
-void		swap_sa_sb(struct p_l **head)
+void		sa(struct p_l **head)
 {
 	struct p_l *current;
 
 	if (*head)
 	{
-		printf("swap_sa_sb\n");
 		current = (*head);
 		if ((current->next) == NULL)
 			return ;
@@ -55,18 +53,18 @@ void		swap_sa_sb(struct p_l **head)
 			current->prev = (current->prev)->next;
 			(*head) = (current->prev)->prev;
 		}
+		ft_putendl("sa");
 	}
 	return ;
 }
 
 
-void            swap_pa_pb(struct p_l **stack_a, struct p_l **stack_b)
+void		pb(struct p_l **stack_a, struct p_l **stack_b)
 {
         struct p_l *current;
 
         if (*stack_a)
         {
-				printf("swap_pb\n");
                 current = (*stack_a);
                 (*stack_a) = current->next;
 				current->prev = NULL;
@@ -74,16 +72,16 @@ void            swap_pa_pb(struct p_l **stack_a, struct p_l **stack_b)
                 if ((*stack_b))
                         (*stack_b)->prev = current;
                 (*stack_b) = current;
+				ft_putendl("pb");
         }
 }
 
-void		swap_ra_rb(struct p_l **head)
+void		ra(struct p_l **head)
 {
 	struct p_l *current;
 	struct p_l *last;
 	if (*head)
 	{
-		printf("swap_ra_rb\n");
 		current = (*head);
 		if ((current->next) == NULL)
 			return ;
@@ -97,17 +95,17 @@ void		swap_ra_rb(struct p_l **head)
 			(*head) = current->next;
 			current->next = NULL;
 		}
+		ft_putendl("ra");
 	}
 }
 
-void		swap_rra(struct p_l **head)
+void		rra(struct p_l **head)
 {
 	struct p_l *current;
 	struct p_l *last;
 
 	if (*head)
 	{
-		printf("swap_rra\n");
 		current = (*head);
 		if ((current->next) == NULL)
 			return ;
@@ -123,5 +121,6 @@ void		swap_rra(struct p_l **head)
 			current->prev = last;
 			(*head) = last;
 		}
+		ft_putendl("rra");
 	}
 }

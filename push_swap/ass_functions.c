@@ -6,13 +6,35 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/01 13:25:28 by lgumede           #+#    #+#             */
-/*   Updated: 2019/09/09 15:47:18 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/16 14:34:39 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include "../libft/libft.h"
 #include <stdio.h>
+
+void		fitter(struct p_l **stack_a, struct p_l **stack_b,
+			struct p_l **fit)
+{
+	struct p_l *curr;
+
+	(*fit) = (*stack_b);
+	if ((*stack_a) && (*stack_b))
+	{
+		curr = (*stack_b);
+		while (curr)
+		{
+			if ((*stack_a)->elem < curr->elem &&
+				((*stack_a)->elem < curr->next->elem))
+			{
+				(*fit) = curr->next;
+				return ;
+			}
+			curr = curr->next;
+		}
+	}
+}
 
 void		last_node(struct p_l **head, struct p_l **tail)
 {
@@ -24,24 +46,6 @@ void		last_node(struct p_l **head, struct p_l **tail)
 	}
 }
 
-size_t			link_size(struct p_l *head)
-{
-	size_t count;
-	struct p_l *current;
-
-	if (head)
-	{
-		current = head;
-		count = 1;
-		while (current->next)
-		{
-			current = current->next;
-			count++;
-		}
-		return (count);
-	}
-	return (0);
-}
 
 void			display(struct p_l *list)
 {

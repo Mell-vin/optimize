@@ -6,7 +6,7 @@
 /*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 12:37:54 by lgumede           #+#    #+#             */
-/*   Updated: 2019/09/16 15:45:23 by lgumede          ###   ########.fr       */
+/*   Updated: 2019/09/17 15:01:34 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,18 +126,16 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 		}
 		if (counter(*stack_b) >= 2)
 		{
-			ft_putendl("here");
 			small(stack_b, min);
 			if ((*stack_a)->elem < (*min)->elem)
 			{
-				ft_putendl("here");
-				pb(stack_a, stack_b);   //fix error here. it only pushes once if at all, then loops at two foreverrrrrrr
+				pb(stack_a, stack_b);  //some logical issues with how it runs. fix seg faults aswell :D
 				rb(stack_b);
 			}
 			else
 			{
 				fitter(stack_a, stack_b, fit);
-				while ((*fit) != (*stack_b))
+				if ((*fit) != (*stack_b))
 				{
 					if (above(*fit, *mid) == 1)
 						rb(stack_b);
@@ -145,7 +143,9 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 						rrb(stack_b);
 					fitter(stack_a, stack_b, fit);
 				}
+				pb(stack_a, stack_b);
 			}
 		}
 	}
+	finish(stack_a, stack_b, mid);
 }

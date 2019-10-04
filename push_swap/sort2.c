@@ -12,27 +12,10 @@
 
 #include "../libft/libft.h"
 #include "push_swap.h"
-
-int			counter(struct p_l *head)
-{
-	int counter;
-	struct p_l *curr;
-
-	counter = 0;
-	if (head)
-	{
-	curr = head;
-	while (curr)
-		{
-			counter++;
-			curr = curr->next;
-		}
-	}
-	return (counter);
-}
+#include <stdio.h>
 
 void		sort_3(struct p_l **stack_a, struct p_l **stack_b,
-			struct p_l **min)
+		struct p_l **min)
 {
 	small(stack_a, min);
 	while (!(is_sorted(*stack_a)))
@@ -64,28 +47,28 @@ void		sort_3(struct p_l **stack_a, struct p_l **stack_b,
 }
 
 /*void		sort_5(struct p_l **stack_a, struct p_l **stack_b, struct
-		p_l **mid, struct p_l **smallest)
+  p_l **mid, struct p_l **smallest)
+  {
+  while (is_sorted(*stack_a) == 0)
+  {
+  small((stack_a), (smallest));
+//if (sa_check(*stack_a))
+//	swap_sa_sb(stack_a);
+small(stack_a, smallest);
+if ((*smallest) != (*stack_a))
 {
-	while (is_sorted(*stack_a) == 0)
-	{
-		small((stack_a), (smallest));
-		//if (sa_check(*stack_a))
-		//	swap_sa_sb(stack_a);
-		small(stack_a, smallest);
-		if ((*smallest) != (*stack_a))
-		{
-			if (above(*smallest, *mid) == 1)
-				ra(stack_a);
-			else if (above(*smallest, *mid) == 0)
-			{
-				rra(stack_a);
-			}
-		}
-		else if ((*smallest) == (*stack_a) && (((*stack_a)->next)->next != NULL))
-			new_min(stack_a, stack_b, smallest);
-	}
-	while (*stack_b != NULL)
-		pa(stack_b, stack_a);
+if (above(*smallest, *mid) == 1)
+ra(stack_a);
+else if (above(*smallest, *mid) == 0)
+{
+rra(stack_a);
+}
+}
+else if ((*smallest) == (*stack_a) && (((*stack_a)->next)->next != NULL))
+new_min(stack_a, stack_b, smallest);
+}
+while (*stack_b != NULL)
+pa(stack_b, stack_a);
 }*/
 
 void		finish(struct p_l **stack_a, struct p_l **stack_b,struct p_l **mid)
@@ -108,44 +91,101 @@ void		finish(struct p_l **stack_a, struct p_l **stack_b,struct p_l **mid)
 }
 
 void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
-			p_l **mid, struct p_l **fit, struct p_l **min)
+		p_l **midst, struct p_l **fit, struct p_l **min)
 {
-	while (*stack_a)
+	int		count;
+	int		loops;
+	struct p_l	*max;
+	struct p_l	*quar;
+	struct p_l	*curr;
+
+	large(stack_a, &max);
+	count = counter((*stack_a)) / 4;
+	quarter_list(stack_a, &max, &quar, min, count);
+	loops = 0;
+	while ((*stack_a) && loops <= count)
 	{
-		if (counter(*stack_b) < 2)
-			pb(stack_a, stack_b);
-		if (counter(*stack_b) == 2)
+		curr = quar;
+		found = 0;
+		while (curr)
 		{
-		//	ft_putendl("here");
-			if ((*stack_b)->elem < ((*stack_b)->next)->elem)
-			{
-				//ft_putendl("here");
-				sb(stack_b);
-				//ft_putendl("here");
-			}
-		}
-		if (counter(*stack_b) >= 2)
-		{
-			small(stack_b, min);
-			if ((*stack_a)->elem < (*min)->elem)
-			{
-				pb(stack_a, stack_b);  //some logical issues with how it runs. fix seg faults aswell :D
-				rb(stack_b);
-			}
-			else
+			if ((*stack_a)->elem == curr->elem)
 			{
 				fitter(stack_a, stack_b, fit);
-				if ((*fit) != (*stack_b))
+				large(stack_b, &max);
+				small(stack_b, min);
+				mid(stack_b, midst, count);
+				if (loops <= 2)
 				{
-					if (above(*fit, *mid) == 1)
-						rb(stack_b);
-					else if (above(*fit, *mid) == 0)
-						rrb(stack_b);
-					fitter(stack_a, stack_b, fit);
+					if ((*stack_b) == NULL)
+						pb(stack_a, stack_b);
+					else if ((*stack_a)->elem <
+						(*stack_b)->elem)
+					{
+						pb(stack_a, stack_b);
+						sb(stack_b);
+					}
+					else
+						pb(stack_a, stack_b);
 				}
-				pb(stack_a, stack_b);
+				else if ((*stack_a)->elem < (*min)->elem)
+				{
+					while (max != (*stack_b))
+					{
+						if (above(max, *midst) == 1)
+						{
+							rb(stack_b);
+						}
+						else if (above(max, *midst) == 0)
+						{
+							rrb(stack_b);
+						}
+					}
+					pb(stack_a, stack_b);
+					rb(stack_b);
+				}
+				else if ((*stack_a)->elem > max->elem)
+				{
+					while (max != (*stack_b))
+					{
+						if (above(max, *midst) == 1)
+						{
+							rb(stack_b);
+						}
+						else if (above(max, *midst) == 0)
+						{
+							rrb(stack_b);
+						}
+					}
+					pb(stack_a, stack_b);
+				}
+				else if ((*fit) == (*stack_b))
+				{
+					pb(stack_a, stack_b);
+				}
+				else if (above((*fit), (*midst)) == 1)
+				{
+					while ((*fit) != (*stack_b))
+					{
+						rb(stack_b);
+					}
+					pb(stack_a, stack_b);
+				}
+				else if (above((*fit), (*midst)) == 0)
+				{
+					while ((*fit) != (*stack_b))
+					{
+						rrb(stack_b);
+					}
+					pb(stack_a, stack_b);
+				}
+				loops++;
+				found = 1;
 			}
+			curr = curr->next;
 		}
+		if (found == 0)
+			ra(stack_a);
 	}
-	finish(stack_a, stack_b, mid);
+	finish(stack_a, stack_b, midst);
 }

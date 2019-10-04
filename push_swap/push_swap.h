@@ -34,24 +34,29 @@ void		display(struct p_l *list);
 void		swap_2(struct p_l **head);
 void		stack_a(int *nbr, int size, struct p_l **stack_a);
 void		fitter(struct p_l **stack_a, struct p_l **stack_b,
-			struct p_l **fit);
+		struct p_l **fit);
+void		quarter_list(struct p_l **stack_a, struct p_l **max,
+		struct p_l **quar, struct p_l **min, int count);
 void		last_node(struct p_l **head, struct p_l **tail);
 int		*arr_maker(char **str, size_t size);
+int		compare(struct p_l **stack_a, struct p_l **quar);
 int		digi_check(char **str);
 int		is_duplicate(struct p_l *head);
 int		is_sorted(struct p_l *head);
 int		av(struct p_l *head);
+int		counter(struct p_l *head);
 int		above(struct p_l *link, struct p_l *mid);
 void		large(struct p_l **head, struct p_l **largest);
 void		small(struct p_l **head, struct p_l **smallest);
 void		mid(struct p_l **head, struct p_l **mid, int size);
 void		swap_sa_sb(struct p_l **head);
 void		sorter(struct p_l **stack_a, struct p_l **stack_b,
-			struct p_l ** midst, struct p_l **fit, struct p_l **smallest);
+		struct p_l ** midst, struct p_l **fit, struct p_l **smallest);
 void		ra_rb_sa_sb(struct p_l **stack_a);
 void		rra_sa_sb(struct p_l **stack_a);
 void		new_min(struct p_l **stack_a, struct p_l **stack_b,
 		struct p_l **smallest);
 int		sa_check(struct p_l *head);
 int		sb_check(struct p_l *head);
+
 #endif

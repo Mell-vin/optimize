@@ -19,14 +19,21 @@ void		fitter(struct p_l **stack_a, struct p_l **stack_b,
 {
 	struct p_l *curr;
 
-	(*fit) = (*stack_b);
-	if ((*stack_a) && (*stack_b))
+	last_node(stack_b, fit);
+	if ((*stack_a)->elem > (*stack_b)->elem &&
+		(*stack_a)->elem < (*fit)->elem)
 	{
+		(*fit) = (*stack_b);
+		return ;
+	}
+	else
+	{
+		(*fit) = (*stack_b);
 		curr = (*stack_b);
-		while (curr)
+		while (curr && curr->next)
 		{
 			if ((*stack_a)->elem < curr->elem &&
-				((*stack_a)->elem < curr->next->elem))
+				((*stack_a)->elem > curr->next->elem))
 			{
 				(*fit) = curr->next;
 				return ;
@@ -56,12 +63,13 @@ void			display(struct p_l *list)
 		point = list;
 		while (point != NULL)
 		{
-			printf("%d\n", point->elem);
+			ft_putnbr(point->elem);
+			ft_putendl(" ");
 			point = point->next;
 		}
 		return ;
 	}
-	printf("Nothing to print\n");
+	ft_putendl("Nothing to print");
 }
 
 int			sa_check(struct p_l *head)

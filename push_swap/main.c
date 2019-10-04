@@ -22,7 +22,7 @@ int			main(int ac, char **av)
 	struct p_l *head;
 	struct p_l *head2;
 	struct p_l *midst;
-	struct p_l *largest;
+	//struct p_l *largest;
 	struct p_l *fit;
 
 	//i  = 1;
@@ -37,14 +37,16 @@ int			main(int ac, char **av)
 			head = NULL;
 			head2 = NULL;
 			midst = NULL;
-			largest = NULL;
+			//largest = NULL;
 			fit = NULL;
 			smallest = NULL;
 			stack_a(arr, ac - 1, &head);
-			//small(&head, &smallest);
+			small(&head, &smallest);
+			//large(&head, &largest);
 			mid(&head, &midst, ac - 1);
 			sorter(&head, &head2, &midst, &fit, &smallest);
 		}
+		//display(head);
 	}
 	return (0);
 }

@@ -15,30 +15,33 @@
 #include <stdio.h>
 
 void		fitter(struct p_l **stack_a, struct p_l **stack_b,
-			struct p_l **fit)
+		struct p_l **fit)
 {
 	struct p_l *curr;
 
-	last_node(stack_b, fit);
-	if ((*stack_a)->elem > (*stack_b)->elem &&
-		(*stack_a)->elem < (*fit)->elem)
+	if ((*stack_a) && (*stack_b))
 	{
-		(*fit) = (*stack_b);
-		return ;
-	}
-	else
-	{
-		(*fit) = (*stack_b);
-		curr = (*stack_b);
-		while (curr && curr->next)
+		last_node(stack_b, fit);
+		if ((*stack_a)->elem > (*stack_b)->elem &&
+				(*stack_a)->elem < (*fit)->elem)
 		{
-			if ((*stack_a)->elem < curr->elem &&
-				((*stack_a)->elem > curr->next->elem))
+			(*fit) = (*stack_b);
+			return ;
+		}
+		else
+		{
+			(*fit) = (*stack_b);
+			curr = (*stack_b);
+			while (curr && curr->next)
 			{
-				(*fit) = curr->next;
-				return ;
+				if ((*stack_a)->elem < curr->elem &&
+						((*stack_a)->elem > curr->next->elem))
+				{
+					(*fit) = curr->next;
+					return ;
+				}
+				curr = curr->next;
 			}
-			curr = curr->next;
 		}
 	}
 }

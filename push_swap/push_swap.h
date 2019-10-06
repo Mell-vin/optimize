@@ -48,7 +48,7 @@ int		counter(struct p_l *head);
 int		above(struct p_l *link, struct p_l *mid);
 void		large(struct p_l **head, struct p_l **largest);
 void		small(struct p_l **head, struct p_l **smallest);
-void		mid(struct p_l **head, struct p_l **mid, int size);
+void		mid(struct p_l **head, struct p_l **mid);
 void		swap_sa_sb(struct p_l **head);
 void		sorter(struct p_l **stack_a, struct p_l **stack_b,
 		struct p_l ** midst, struct p_l **fit, struct p_l **smallest);

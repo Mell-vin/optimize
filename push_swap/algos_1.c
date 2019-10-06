@@ -70,7 +70,7 @@ void		large(struct p_l **head, struct p_l **largest)
 {
 	struct p_l *current;
 
-	if (*head)
+	if ((*head))
 	{
 		(*largest) = (*head);
 		current = (*largest)->next;
@@ -105,18 +105,16 @@ void            small(struct p_l **head, struct p_l **smallest)
 	}
 }
 
-void		mid(struct p_l **head, struct p_l **mid, int size)
+void		mid(struct p_l **head, struct p_l **mid)
 {
 	size_t count;
 	size_t new_size;
 
-	if (head)
+	if ((*head) && (*head)->next)
 	{
 		count = 1;
-		new_size = size;
+		new_size = counter((*head));
 		(*mid) = (*head);
-		//if ((size % 2) == 1)
-		//	new_size += 1;
 		while (count <= (new_size/2))
 		{
 			(*mid) = (*mid)->next;

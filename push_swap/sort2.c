@@ -95,6 +95,7 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 {
 	int		count;
 	int		loops;
+	int		found;
 	struct p_l	*max;
 	struct p_l	*quar;
 	struct p_l	*curr;
@@ -103,19 +104,19 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 	count = counter((*stack_a)) / 4;
 	quarter_list(stack_a, &max, &quar, min, count);
 	loops = 0;
-	while ((*stack_a) && loops <= count)
+	while ((*stack_a) && loops < count)
 	{
 		curr = quar;
-		found = 0;
 		while (curr)
 		{
+			found = 0;
 			if ((*stack_a)->elem == curr->elem)
 			{
 				fitter(stack_a, stack_b, fit);
 				large(stack_b, &max);
 				small(stack_b, min);
-				mid(stack_b, midst, count);
-				if (loops <= 2)
+				mid(stack_b, midst);
+				if (loops < 2)
 				{
 					if ((*stack_b) == NULL)
 						pb(stack_a, stack_b);
@@ -182,7 +183,10 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 				loops++;
 				found = 1;
 			}
-			curr = curr->next;
+			if (found == 1)
+				curr = quar;
+			else
+				curr = curr->next;
 		}
 		if (found == 0)
 			ra(stack_a);

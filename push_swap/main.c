@@ -43,7 +43,7 @@ int			main(int ac, char **av)
 			stack_a(arr, ac - 1, &head);
 			small(&head, &smallest);
 			//large(&head, &largest);
-			mid(&head, &midst, ac - 1);
+			//mid(&head, &midst, ac - 1);
 			sorter(&head, &head2, &midst, &fit, &smallest);
 		}
 		//display(head);

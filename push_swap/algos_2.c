@@ -19,23 +19,27 @@ int		counter(struct p_l *head)
 	return (counter);
 }
 
-void		quarter_list(struct p_l **stack_a, struct p_l **max,
-		struct p_l **quar, struct p_l **min, int count)
+void		Orderlist(struct p_l **stack_a, struct
+		p_l **quar, int count)
 {
 	int		max_num;
 	struct p_l	*curr;
 	struct p_l	*curr_q;
 	struct p_l	*new_;
+	int		min_num;
 
-	if ((*stack_a) && (*max))
+	large(stack_a, &curr);
+	max_num = curr->elem;
+	small(stack_a, &curr);
+	min_num = curr->elem;
+	if ((*stack_a) && (max_num))
 	{
-		max_num = (*max)->elem;
 		if (!((*quar) = (struct p_l *)malloc(sizeof(struct p_l))))
 			return ;
 		curr_q = (*quar);
 		curr_q->elem = max_num;
 		max_num--;
-		while (count > 1 && max_num >= (*min)->elem)
+		while (count > 1 && max_num >= min_num)
 		{
 			curr = (*stack_a);
 			while (curr)

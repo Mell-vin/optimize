@@ -35,8 +35,8 @@ void		swap_2(struct p_l **head);
 void		stack_a(int *nbr, int size, struct p_l **stack_a);
 void		fitter(struct p_l **stack_a, struct p_l **stack_b,
 		struct p_l **fit);
-void		quarter_list(struct p_l **stack_a, struct p_l **max,
-		struct p_l **quar, struct p_l **min, int count);
+void		Orderlist(struct p_l **stack_a, struct p_l **quar, int
+		count);
 void		last_node(struct p_l **head, struct p_l **tail);
 int		*arr_maker(char **str, size_t size);
 int		compare(struct p_l **stack_a, struct p_l **quar);

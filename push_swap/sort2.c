@@ -47,33 +47,35 @@ void		sort_3(struct p_l **stack_a, struct p_l **stack_b,
 }
 
 /*void		sort_5(struct p_l **stack_a, struct p_l **stack_b, struct
-  p_l **mid, struct p_l **smallest)
-  {
-  while (is_sorted(*stack_a) == 0)
-  {
-  small((stack_a), (smallest));
-//if (sa_check(*stack_a))
-//	swap_sa_sb(stack_a);
-small(stack_a, smallest);
-if ((*smallest) != (*stack_a))
+		p_l **mid, struct p_l **smallest)
 {
-if (above(*smallest, *mid) == 1)
-ra(stack_a);
-else if (above(*smallest, *mid) == 0)
-{
-rra(stack_a);
-}
-}
-else if ((*smallest) == (*stack_a) && (((*stack_a)->next)->next != NULL))
-new_min(stack_a, stack_b, smallest);
-}
-while (*stack_b != NULL)
-pa(stack_b, stack_a);
+	while (is_sorted(*stack_a) == 0)
+	{
+		small((stack_a), (smallest));
+		if (sa_check(*stack_a))
+			swap_sa_sb(stack_a);
+		small(stack_a, smallest);
+		if ((*smallest) != (*stack_a))
+		{
+			if (above(*smallest, *mid) == 1)
+				ra(stack_a);
+			else if (above(*smallest, *mid) == 0)
+			{
+				rra(stack_a);
+			}
+		}
+		else if ((*smallest) == (*stack_a) && (((*stack_a)->next)->next != NULL))
+			new_min(stack_a, stack_b, smallest);
+	}
+	while (*stack_b != NULL)
+		pa(stack_b, stack_a);
 }*/
 
-void		finish(struct p_l **stack_a, struct p_l **stack_b,struct p_l **mid)
+void		finish(struct p_l **stack_a, struct p_l **stack_b,
+		struct p_l **mid)
 {
 	struct p_l *max;
+	struct p_l *fit;
 
 	large(stack_b, &max);
 	while (max != (*stack_b))
@@ -84,6 +86,14 @@ void		finish(struct p_l **stack_a, struct p_l **stack_b,struct p_l **mid)
 			rrb(stack_b);
 		large(stack_b, &max);
 	}
+	fitter(stack_b, stack_a, &fit);
+	while(fit != (*stack_a))
+	{
+		if (above(fit, *mid) == 1)
+                        ra(stack_a);
+                else if (above(fit, *mid) == 0)
+                        rra(stack_a);
+	}
 	while (*stack_b)
 	{
 		pa(stack_b, stack_a);
@@ -91,58 +101,71 @@ void		finish(struct p_l **stack_a, struct p_l **stack_b,struct p_l **mid)
 }
 
 void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
-		p_l **midst, struct p_l **fit, struct p_l **min)
+		p_l **midst, struct p_l **fit, struct p_l **quar)
 {
-	int		count;
 	int		loops;
 	int		found;
 	struct p_l	*max;
-	struct p_l	*quar;
+	struct p_l	*min;
 	struct p_l	*curr;
+	printf("Stack-A******************************************\n\n");
+	display(*stack_a);
+	printf("quar*********************************************\n\n");
+	display(*quar);
 
-	large(stack_a, &max);
-	count = counter((*stack_a)) / 4;
-	quarter_list(stack_a, &max, &quar, min, count);
 	loops = 0;
-	while ((*stack_a) && loops < count)
-	{
-		curr = quar;
-		while (curr)
+	//while (loops < 25)
+	//{
+		printf("\n\nLoops: %d\n\n", loops);
+		curr = *quar;
+		while (curr && (*stack_a))
 		{
 			found = 0;
 			if ((*stack_a)->elem == curr->elem)
 			{
 				fitter(stack_a, stack_b, fit);
 				large(stack_b, &max);
-				small(stack_b, min);
+				small(stack_b, &min);
 				mid(stack_b, midst);
 				if (loops < 2)
 				{
 					if ((*stack_b) == NULL)
-						pb(stack_a, stack_b);
-					else if ((*stack_a)->elem <
-						(*stack_b)->elem)
 					{
+						printf("\n0\n");
 						pb(stack_a, stack_b);
+					}
+					else if ((*stack_a)->elem <
+							(*stack_b)->elem)
+					{
+						printf("\n1\n");
+						pb(stack_a, stack_b);
+						printf("\n2\n");
 						sb(stack_b);
 					}
 					else
+					{
+						printf("\n3\n");
 						pb(stack_a, stack_b);
+					}
 				}
-				else if ((*stack_a)->elem < (*min)->elem)
+				else if ((*stack_a)->elem < (min)->elem)
 				{
 					while (max != (*stack_b))
 					{
 						if (above(max, *midst) == 1)
 						{
+							printf("\n4\n");
 							rb(stack_b);
 						}
 						else if (above(max, *midst) == 0)
 						{
+							printf("\n5\n");
 							rrb(stack_b);
 						}
 					}
+					printf("\n6\n");
 					pb(stack_a, stack_b);
+					printf("\n7\n");
 					rb(stack_b);
 				}
 				else if ((*stack_a)->elem > max->elem)
@@ -151,45 +174,63 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b, struct
 					{
 						if (above(max, *midst) == 1)
 						{
+							printf("\n8\n");
 							rb(stack_b);
 						}
 						else if (above(max, *midst) == 0)
 						{
+							printf("\n9\n");
 							rrb(stack_b);
 						}
 					}
+					printf("\n10\n");
 					pb(stack_a, stack_b);
 				}
 				else if ((*fit) == (*stack_b))
 				{
+					printf("\n11\n");
 					pb(stack_a, stack_b);
 				}
 				else if (above((*fit), (*midst)) == 1)
 				{
 					while ((*fit) != (*stack_b))
 					{
+						printf("\n12\n");
 						rb(stack_b);
 					}
+					printf("\n13\n");
 					pb(stack_a, stack_b);
 				}
 				else if (above((*fit), (*midst)) == 0)
 				{
 					while ((*fit) != (*stack_b))
 					{
+						printf("\n15\n");
 						rrb(stack_b);
 					}
+					printf("\n16\n");
 					pb(stack_a, stack_b);
 				}
 				loops++;
 				found = 1;
 			}
 			if (found == 1)
-				curr = quar;
+			{
+				printf("\nfrom the top of quar\n");
+				curr = *quar;
+			}
 			else
+			{
+				printf("\nNext quar\n");
 				curr = curr->next;
+			}
 		}
 		if (found == 0)
+		{
+			printf("\n17\n");
 			ra(stack_a);
-	}
+		}
+	//}
+	printf("Finisher\n");
 	finish(stack_a, stack_b, midst);
 }

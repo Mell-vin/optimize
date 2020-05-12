@@ -1,5 +1,6 @@
 #include "../libft/libft.h"
 #include "push_swap.h"
+#include "stdio.h"
 
 int		counter(struct p_l *head)
 {
@@ -82,4 +83,12 @@ int		compare(struct p_l **stack_a, struct p_l **quar)
 		}
 	}
 	return (0);
+}
+
+void	new_min(struct p_l **stack_a, struct p_l **stack_b, struct p_l **smallest)
+{
+	if (*stack_a) {
+		pb(stack_a, stack_b);
+		small(stack_a, smallest);
+	}
 }

@@ -23,14 +23,25 @@ struct p_l
 	struct p_l *prev;
 };
 void		pb(struct p_l **stack_a, struct p_l **stack_b);
+void		checker_pb(struct p_l **stack_a, struct p_l **stack_b);
 void		sa(struct p_l **head);
+void		checker_sa(struct p_l **head);
 void		sb(struct p_l **head);
+void		checker_sb(struct p_l **head);
 void		pa(struct p_l **stack_b, struct p_l **stack_a);
+void		checker_pa(struct p_l **stack_b, struct p_l **stack_a);
 void		rra(struct p_l **head);
+void		checker_rra(struct p_l **head);
 void		rrb(struct p_l **head);
+void		checker_rrb(struct p_l **head);
 void		rb(struct p_l **head);
+void		checker_rb(struct p_l **head);
 void		ra(struct p_l **head);
+void		checker_ra(struct p_l **head);
 void		display(struct p_l *list);
+void        checker_rrr(struct p_l **stack_a, struct p_l **stack_b);
+void        checker_rr(struct p_l **stack_a, struct p_l **stack_b);
+void		checker_ss(struct p_l **stack_a, struct p_l **stack_b);
 void		swap_2(struct p_l **head);
 void		stack_a(int *nbr, int size, struct p_l **stack_a);
 void		fitter(struct p_l **stack_a, struct p_l **stack_b,
@@ -54,6 +65,8 @@ void		sorter(struct p_l **stack_a, struct p_l **stack_b,
 		struct p_l ** midst, struct p_l **fit, struct p_l **smallest);
 void		ra_rb_sa_sb(struct p_l **stack_a);
 void		rra_sa_sb(struct p_l **stack_a);
+void		sort_5(struct p_l **stack_a, struct p_l **stack_b, struct
+			p_l **mid, struct p_l **smallest);
 void		new_min(struct p_l **stack_a, struct p_l **stack_b,
 		struct p_l **smallest);
 int		sa_check(struct p_l *head);

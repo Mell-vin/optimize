@@ -3,76 +3,58 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lgumede  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/19 09:50:04 by lgumede           #+#    #+#             */
-/*   Updated: 2019/08/29 14:49:52 by lgumede          ###   ########.fr       */
+/*   Created: 2019/05/20 13:23:58 by lgumede           #+#    #+#             */
+/*   Updated: 2019/06/18 16:29:38 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_word(const char *s, char c)
+static size_t	ft_wrdcnt(char const *str, char c)
 {
-	int			i;
-	int			len;
-
-	i = 0;
-	len = 0;
-	while (s[i] == c)
-		i++;
-	while (s[i] != c && s[i] != '\0')
-	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-static int		counter(const char *s, char c)
-{
-	int			i;
-	int			count;
+	size_t	i;
+	size_t	count;
 
 	i = 0;
 	count = 0;
-	while (s[i])
+	while (str[i])
 	{
-		while (s[i] == c)
+		while (str[i] == c)
 			i++;
-		if (s[i] != c && s[i])
+		if (str[i])
 			count++;
-		while (s[i] != c && s[i])
+		while (str[i] != c && str[i] != '\0')
 			i++;
 	}
 	return (count);
 }
 
-char			**ft_strsplit(char const *s, char c)
+char			**ft_strsplit(char const *str, char c)
 {
-	char		**str;
-	int			i;
-	int			j;
-	int			k;
+	size_t	i;
+	size_t	j;
+	size_t	s;
+	char	**splits;
 
-	if (!s)
-		return (NULL);
-	str = (char **)malloc((sizeof(*str) * counter(s, c)) + 1);
 	if (!str)
 		return (NULL);
 	i = 0;
-	j = -1;
-	while (++j < counter(s, c))
+	j = 0;
+	if (!(splits = (char **)malloc(sizeof(char *) * (ft_wrdcnt(str, c)) + 1)))
+		return (NULL);
+	while (str[i])
 	{
-		k = 0;
-		if (!(str[j] = (char *)malloc(sizeof(char) * ft_word(&s[i], c) + 1)))
-			str[j] = NULL;
-		while (s[i] == c)
+		while (str[i] == c)
 			i++;
-		while (s[i] != c && s[i])
-			str[j][k++] = s[i++];
-		str[j][k] = '\0';
+		if (str[i] != c)
+			s = i;
+		while (str[i] != c && str[i] != '\0')
+			i++;
+		if (s < i)
+			splits[j++] = ft_strsub(str, s, (i - s));
 	}
-	str[j] = NULL;
-	return (str);
+	splits[j] = NULL;
+	return (splits);
 }

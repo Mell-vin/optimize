@@ -3,71 +3,65 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lgumede  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/19 09:36:51 by lgumede           #+#    #+#             */
-/*   Updated: 2019/07/19 12:36:09 by lgumede          ###   ########.fr       */
+/*   Created: 2019/06/26 14:51:16 by lgumede           #+#    #+#             */
+/*   Updated: 2019/07/26 09:57:31 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "libft.h"
 
-static int	ft_len(char *s, char c)
+static char	*ft_freejoin_str(char *tmp, char *buf)
 {
-	int i;
+	char *fr;
 
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == c)
-			return (i);
-		i++;
-	}
-	return (0);
+	if (buf == NULL)
+		return (NULL);
+	fr = tmp;
+	tmp = ft_strjoin(tmp, buf);
+	free(fr);
+	return (tmp);
 }
 
-static int	ft_readline(char **str, char **line)
+static char	*ft_makeline(char **line, char *tmp)
 {
-	char *temp;
+	size_t	n;
+	char	*fr;
 
-	if (ft_strchr(*str, '\n'))
-	{
-		*line = ft_strsub(*str, 0, ft_len(*str, '\n'));
-		temp = ft_strdup(ft_strchr(*str, '\n') + 1);
-		ft_strdel(str);
-		*str = temp;
-	}
+	n = 0;
+	while (tmp[n] != '\n' && tmp[n] != '\0')
+		n++;
+	*line = ft_strsub(tmp, 0, n);
+	if (ft_strcmp(*line, tmp) == 0)
+		ft_strdel(&tmp);
 	else
 	{
-		*line = ft_strdup(*str);
-		ft_strdel(str);
+		fr = tmp;
+		tmp = ft_strdup(tmp + n + 1);
+		free(fr);
 	}
-	return (1);
+	return (tmp);
 }
 
 int			get_next_line(const int fd, char **line)
 {
-	static char	*str[1024];
-	char		buff[BUFF_SIZE + 1];
-	int			bytes;
-	char		*temp;
+	size_t		ret;
+	char		buf[BUFF_SIZE + 1];
+	static char *arr[1024];
 
-	if (fd < 0 || line == NULL || read(fd, buff, 0) < 0)
+	if (BUFF_SIZE < 1 || fd < 0 || !line || read(fd, buf, 0) < 0)
 		return (-1);
-	if (str[fd] == NULL)
-		str[fd] = ft_strnew(1);
-	bytes = 0;
-	while (!ft_strchr(str[fd], '\n') && (bytes = read(fd, buff, BUFF_SIZE)) > 0)
+	if (!arr[fd])
+		arr[fd] = ft_strnew(0);
+	while (!ft_strchr(arr[fd], '\n')
+			&& ((ret = read(fd, buf, BUFF_SIZE)) > 0))
 	{
-		buff[bytes] = '\0';
-		temp = ft_strjoin(str[fd], buff);
-		ft_strdel(&str[fd]);
-		str[fd] = temp;
+		buf[ret] = '\0';
+		arr[fd] = ft_freejoin_str(arr[fd], buf);
 	}
-	if (bytes < 0)
-		return (-1);
-	else if (bytes == 0 && (str[fd] == NULL || str[fd][0] == '\0'))
+	if (ret < BUFF_SIZE && !ft_strlen(arr[fd]))
 		return (0);
-	else
-		return (ft_readline(&str[fd], line));
+	arr[fd] = ft_makeline(line, arr[fd]);
+	return (1);
 }

@@ -3,35 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lgumede <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: lgumede  <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/07/19 09:49:34 by lgumede           #+#    #+#             */
-/*   Updated: 2019/07/19 09:49:36 by lgumede          ###   ########.fr       */
+/*   Created: 2019/05/20 13:06:55 by lgumede           #+#    #+#             */
+/*   Updated: 2019/06/18 15:34:24 by lgumede          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_strnstr(const char *str, const char *needle, size_t len)
+char	*ft_strnstr(const char *stack, const char *ndl, size_t n)
 {
-	size_t	j;
-	size_t	i;
+	size_t i;
+	size_t j;
 
 	i = 0;
-	if (needle[0] == '\0')
-		return ((char *)str);
-	while (str[i] != '\0' && i < len)
+	if (ndl[0] == '\0' || ndl == NULL)
+		return ((char *)stack);
+	while (stack[i] != '\0')
 	{
 		j = 0;
-		while (needle[j] == str[i + j] && i + j < len)
-		{
-			if (needle[j + 1] == '\0')
-			{
-				return ((char *)str + i);
-			}
+		while (stack[i + j] == ndl[j] && ndl[j] != '\0' && (i + j) < n)
 			j++;
-		}
+		if (ndl[j] == '\0' && (i + j) <= n)
+			return ((char *)stack + i);
 		i++;
 	}
-	return (0);
+	return (NULL);
 }

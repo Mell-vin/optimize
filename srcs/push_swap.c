@@ -12,10 +12,6 @@
 
 #include "push_swap.h"
 
-/*
-** for testing-- delete later
-*/
-
 void	ft_print_stacks(t_stacks *stacks)
 {
 	int i;

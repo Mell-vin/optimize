@@ -31,17 +31,14 @@ void	free_stacks(t_stacks **stacks)
 {
 	if ((*stacks)->stack_a)
 	{
-		printf("\n1\n");
 		free((*stacks)->stack_a);
 	}
 	if ((*stacks)->stack_b)
 	{
-		printf("\n2\n");
 		free((*stacks)->stack_b);
 	}
 	if (*stacks)
 	{
-		printf("\n3\n");
 		free(*stacks);
 		*stacks = NULL;
 	}
